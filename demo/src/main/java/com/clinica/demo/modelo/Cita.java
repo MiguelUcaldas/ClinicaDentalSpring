@@ -6,6 +6,8 @@ import jakarta.persistence.Entity; // Import the Entity class
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,15 +25,20 @@ public class Cita {
     private String hora;
     @Column(name = "motivo", nullable = false, length = 30)
     private String motivo;
-    @Column(name = "tratamiento", nullable = false, length = 30)
-    private Tratamiento tratamiento;
     @Column(name = "estado", nullable = false, length = 30)
     private String estado;
+
+    //tratamiento relacionado con la entidad tratamiento
+    @ManyToOne
+    @JoinColumn(name = "tratamiento_id", nullable = false) // Nombre de la columna en la tabla de citas que almacena el ID del tratamiento
+    private Tratamiento tratamiento;
     //paciente relacionado con la entidad paciente
-    @Column(name = "paciente", nullable = false, length = 30)
+    @ManyToOne
+    @JoinColumn(name = "paciente_id", nullable = true ) // Nombre de la columna en la tabla de citas que almacena el ID del paciente
     private Paciente paciente;
     //odontologo relacionado con la entidad odontologo
-    @Column(name = "odontologo", nullable = false, length = 30)
+    @ManyToOne
+    @JoinColumn(name = "odontologo_id", nullable = true) // Nombre de la columna en la tabla de citas que almacena el ID del odontólogo
     private Odontologo odontologo;
 
     //constructors
